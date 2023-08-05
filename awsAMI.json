@@ -4,11 +4,11 @@
         "type": "amazon-ebs",
         "region": "{{user `aws_region`}}",
         "instance_type": "t2.micro",
-        "ami_name": "Rocky8-AMI",
+        "ami_name": "AWSRH-AMI",
         "source_ami_filter": {
           "filters": {
             "virtualization-type": "hvm",
-            "name": "Rocky Linux 8.4*",
+            "name": "Red Hat Enterprise Linux 9",
             "root-device-type": "ebs"
           },
           "owners": ["{{user `ami_owners`}}"],
