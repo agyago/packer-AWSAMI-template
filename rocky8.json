@@ -1,2 +1,46 @@
-
-  
+{
+    "builders": [
+      {
+        "type": "amazon-ebs",
+        "region": "{{user `aws_region`}}",
+        "instance_type": "t2.micro",
+        "ami_name": "Rocky8-AMI",
+        "source_ami_filter": {
+          "filters": {
+            "virtualization-type": "hvm",
+            "name": "Rocky Linux 8.4*",
+            "root-device-type": "ebs"
+          },
+          "owners": ["{{user `ami_owners`}}"],
+          "most_recent": true
+        },
+        "ssh_username": "ec2-user",
+        "ami_block_device_mappings": [
+          {
+            "device_name": "/dev/sda1",
+            "volume_size": 10,
+            "volume_type": "gp2",
+            "delete_on_termination": true
+          }
+        ],
+        "run_tags": {
+          "Name": "RockyImage8",
+          "CreatedBy": "agyago-packer"
+        }
+      }
+    ],
+    "provisioners": [
+      {
+        "type": "shell",
+        "script" : "provisioners/base-yum-repo.sh"
+      },
+      {
+        "type": "shell",
+        "script" : "provisioners/get-tools.sh"
+      },
+      {
+        "type": "shell",
+        "script" : "provisioners/cleanup.sh"
+      }
+    ]
+  }
