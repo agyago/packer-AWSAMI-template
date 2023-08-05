@@ -1,38 +1,46 @@
 {
-  "builders": [
-    {
-      "type": "amazon-ebs",
-      "region": "{{user `aws_region`}}",
-      "instance_type": "t3.micro",
-      "ami_name": "AWSRocky-{{ timestamp }}",
-      "source_ami": "ami-00588d69ca4ca0ad0",
-      "ssh_username": "rocky",
-      "ami_block_device_mappings": [
-        {
-          "device_name": "/dev/sda1",
-          "volume_size": 10,
-          "volume_type": "gp2",
-          "delete_on_termination": true
+    "builders": [
+      {
+        "type": "amazon-ebs",
+        "region": "{{user `aws_region`}}",
+        "instance_type": "t2.micro",
+        "ami_name": "AWSAMI-{{ timestamp }}",
+        "source_ami_filter": {
+          "filters": {
+            "virtualization-type": "hvm",
+            "name": "al2023-ami-2023.1*",
+            "root-device-type": "ebs"
+          },
+          "owners": ["{{user `ami_owners`}}"],
+          "most_recent": true
+        },
+        "ssh_username": "ec2-user",
+        "ami_block_device_mappings": [
+          {
+            "device_name": "/dev/sda1",
+            "volume_size": 10,
+            "volume_type": "gp2",
+            "delete_on_termination": true
+          }
+        ],
+        "run_tags": {
+          "Name": "awsami-agyago",
+          "CreatedBy": "agyago-packer"
         }
-      ],
-      "run_tags": {
-        "Name": "Rocky-agyago",
-        "CreatedBy": "agyago-packer"
       }
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "script": "provisioners/base-yum-repo.sh"
-    },
-    {
-      "type": "shell",
-      "script": "provisioners/get-tools.sh"
-    },
-    {
-      "type": "shell",
-      "script": "provisioners/cleanup.sh"
-    }
-  ]
-}
+    ],
+    "provisioners": [
+      {
+        "type": "shell",
+        "script" : "provisioners/base-yum-repo.sh"
+      },
+      {
+        "type": "shell",
+        "script" : "provisioners/get-tools.sh"
+      },
+      {
+        "type": "shell",
+        "script" : "provisioners/cleanup.sh"
+      }
+    ]
+  }
