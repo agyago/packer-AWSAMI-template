@@ -4,14 +4,12 @@ set -e
 set -x
 
 sudo yum install \
-     jq \
-     nmap-ncat \
-     python3-pip \
-     python3-boto3 \
-     unzip \
-     wget
-
-
-
-ansible --version
-aws --version
+     ansible -y \
+     awscli -y \
+     jq -y \
+     nmap-ncat -y\
+     python3-pip -y\
+     python3-boto3 -y\
+     unzip -y\
+     wget -y \
+     vim -y
