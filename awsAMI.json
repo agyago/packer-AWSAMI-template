@@ -8,7 +8,7 @@
         "source_ami_filter": {
           "filters": {
             "virtualization-type": "hvm",
-            "name": "AlmaLinux OS 8.8.20230524 x86_64",
+            "name": "{{user `ami_name`}}",
             "root-device-type": "ebs"
           },
           "owners": ["{{user `ami_owners`}}"],
@@ -24,8 +24,9 @@
           }
         ],
         "run_tags": {
-          "Name": "awsami-agyago",
-          "CreatedBy": "agyago-packer"
+          "Name": "AlmaLinux-8",
+          "Role": "Base Image",
+          "CreatedBy": "Packer"
         }
       }
     ],

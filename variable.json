@@ -1,4 +1,5 @@
 {
     "ami_owners": "764336703387",
-    "aws_region": "us-east-1"
+    "aws_region": "us-east-1",
+    "ami_name"  : "AlmaLinux OS 8.8.20230524 x86_64"
 }
